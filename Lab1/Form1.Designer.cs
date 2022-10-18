@@ -162,6 +162,8 @@ namespace Lab1
             this.CalculateButton = new System.Windows.Forms.Button();
             this.MatrixText = new System.Windows.Forms.TextBox();
             this.Matrix2 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
@@ -1309,11 +1311,31 @@ namespace Lab1
             this.Matrix2.Size = new System.Drawing.Size(407, 387);
             this.Matrix2.TabIndex = 130;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(46, 294);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(54, 20);
+            this.label1.TabIndex = 131;
+            this.label1.Text = "Matrix:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(511, 295);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 20);
+            this.label5.TabIndex = 135;
+            this.label5.Text = "Answer:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1028, 879);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.Matrix2);
             this.Controls.Add(this.MatrixText);
             this.Controls.Add(this.CalculateButton);
@@ -1601,6 +1623,8 @@ namespace Lab1
         private System.Windows.Forms.Button CalculateButton;
         private System.Windows.Forms.TextBox MatrixText;
         private System.Windows.Forms.TextBox Matrix2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
     }
 }
 

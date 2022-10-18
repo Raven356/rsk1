@@ -139,7 +139,7 @@ namespace Lab1
         {
             logic.GetUnique();
 
-
+            Matrix2.Text = "";
             foreach (var x in logic.Answer)
             {
                 foreach (var y in x)
@@ -148,7 +148,7 @@ namespace Lab1
                 }
                 Matrix2.Text += Environment.NewLine;
             }
-
+            MatrixText.Text = "";
             foreach (var x in logic.Nvalues)
             {
                 foreach (var y in x)
