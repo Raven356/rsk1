@@ -138,16 +138,9 @@ namespace Lab1
         private void CalculateButton_Click(object sender, EventArgs e)
         {
             logic.GetUnique();
-            //for(int i = 0; i < logic.ContiguityMatrix.GetLength(0); i++)
-            //{
-            //    for(int j = 0; j < logic.ContiguityMatrix.GetLength(1); j++)
-            //    {
-            //        MatrixText.Text += logic.ContiguityMatrix[i, j].ToString() + " ";
-            //    }
-            //    MatrixText.Text += Environment.NewLine;
-            //}
 
-            foreach (var x in logic.UnUnique)
+
+            foreach (var x in logic.Answer)
             {
                 foreach (var y in x)
                 {

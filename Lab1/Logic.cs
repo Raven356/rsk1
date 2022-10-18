@@ -28,6 +28,7 @@ namespace Lab1
         public List<List<int>> Nvalues = new List<List<int>>();
         public int[,] ContiguityMatrix;
         public List<List<int>> UnUnique = new List<List<int>>();
+        public List<List<string>> Answer = new List<List<string>>();
 
         public void GetUnique()
         {
@@ -133,6 +134,21 @@ namespace Lab1
                 }
             }
 
+            for(int i = 0; i < values.Count; i++)
+            {
+                for(int j = 0; j < i; j++)
+                {
+                    values[i].Insert(j, 0);
+                }
+            }
+
+            for(int i = 0; i < values.Count; i++)
+            {
+                for(int j = 0; j < i; j++)
+                {
+                    values[i][j] = values[j][i];
+                }
+            }
 
             for (int i = 0; i < values.Count; i++)
             {
@@ -244,7 +260,7 @@ namespace Lab1
                 for (int j = 0; j < answer[i].Count; j++)
                     answer[i][j] = string.Join(", ", answer[i][j].Split(", ").Distinct());
             }
-            Console.WriteLine();
+            Answer = answer;
         }
 
         public void SetZeroJ(int j, List<List<int>> values)
