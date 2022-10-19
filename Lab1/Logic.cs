@@ -28,7 +28,7 @@ namespace Lab1
         public List<List<int>> Nvalues = new List<List<int>>();
         public int[,] ContiguityMatrix;
         public List<List<int>> UnUnique = new List<List<int>>();
-        public List<List<string>> Answer = new List<List<string>>();
+        public List<List<int>> Answer = new List<List<int>>();
 
         public void GetUnique()
         {
@@ -75,10 +75,7 @@ namespace Lab1
                 unUnique.Add(new List<int>());
                 for (int k = i; k < contiguityMatrix.GetLength(0); k++)
                 {
-                    //for(int l = 0; l < k; l++)
-                    //{
-                    //    unUnique[i].Add(unUnique[l][k]);
-                    //}
+
                     unUnique[i].Add(0);
                     for (int j = 0; j < contiguityMatrix.GetLength(1); j++)
                     {
@@ -107,25 +104,7 @@ namespace Lab1
 
         public void CreateTable(List<List<int>> values)
         {
-            //int[,] test = new int[values.Count, values.Count];
-            //for(int i = 0; i < values.Count; i++)
-            //{
-            //    for(int j = 0; j < values[i].Count; j++)
-            //    {
-            //        if(i > j)
-            //        {
-            //            test[i, j] = values[j][i];
-            //        }
-            //        else if(i == j)
-            //        {
-            //            test[i, j] = 0;
-            //        }
-            //        else
-            //        {
-            //            test[i, j] = values[i][j];
-            //        }
-            //    }
-            //}
+            
             for (int i = 0; i < values.Count; i++)
             {
                 for (int j = 1; j < values[i].Count; j++)
@@ -165,8 +144,7 @@ namespace Lab1
 
         public void GetPairs(List<List<int>> values)
         {
-            List<List<string>> answer = new List<List<string>>();
-            //Dictionary<int, List<int>> answer = new Dictionary<int, List<int>>();
+            List<List<int>> answer = new List<List<int>>();
             bool extra = false;
             for (int i = 0; i < values.Count; i++)
             {
@@ -174,25 +152,8 @@ namespace Lab1
                 {
                     if (values[i][j] == values.Max(x => x.Max()) && values[i][j] != 0)
                     {
-                        //if (answer.ContainsKey(values.Max(x => x.Max())))
-                        //{
-                        //    foreach (var x in answer)
-                        //    {
-                        //        if (x.Key == values.Max(x => x.Max()))
-                        //        {
-                        //            List<int> temp = x.Value;
-                        //            temp.Add(i);
-                        //            temp.Add(j);
-                        //            answer.Remove(x.Key);
-                        //            answer.Add(values.Max(x => x.Max()), temp);
-                        //            break;
-                        //        }
-                        //    }
-                        //}
-                        //else
-                        //    answer.Add(values.Max(x => x.Max()), new List<int> { i, j });
-                        answer.Add(new List<string>());
-                        string answ = $"{i + 1}, {j + 1 }";
+                        
+                        List<int> answ = new List<int> { i + 1, j + 1  };
 
 
 
@@ -204,7 +165,7 @@ namespace Lab1
                                 {
                                     extra = true;
                                     values[i1][j] = 0;
-                                    answ += $", {i1 + 1}";
+                                    answ.Add(i1 + 1);
                                     SetZeroI(i1, values);
                                     SetZeroJ(i1, values);
                                 }
@@ -225,7 +186,7 @@ namespace Lab1
                                 if (values[i][j1] == values.Max(x => x.Max()) && j1 != j)
                                 {
                                     values[i][j1] = 0;
-                                    answ += $", {j1 + 1}";
+                                    answ.Add(j1 + 1);
                                     SetZeroI(j1, values);
                                     SetZeroJ(j1, values);
                                 }
@@ -243,24 +204,44 @@ namespace Lab1
                         i = 0;
                         j = 0;
 
-                        answer[answer.Count - 1].Add(answ);
+                        answer.Add(answ);
                     }
                 }
             }
-            //Dictionary<int, List<int>> final = new Dictionary<int, List<int>>();
-            //foreach(var x in answer)
-            //{
-            //    List<int> temp = x.Value.Distinct().ToList();
-            //    int key = x.Key;
-            //    final.Add(key, temp);
-            //}
+
+            int amount = 0;
+            foreach(var x in answer)
+            {
+                amount += x.Count;
+            }
+            if (amount + 1 == values.Count)
+            {
+                List<int> elements = new List<int>();
+                foreach (var x in answer)
+                {
+                    foreach (var y in x) {
+                        elements.Add(y);
+                    }
+                }
+                elements.Sort();
+                for(int i = 0; i < values.Count; i++)
+                {
+                    if(elements[i] != i + 1)
+                    {
+                        answer.Add(new List<int>());
+                        answer[^1].Add(i + 1);
+                        break;
+                    }
+                }
+            }
 
             for (int i = 0; i < answer.Count; i++)
             {
                 for (int j = 0; j < answer[i].Count; j++)
-                    answer[i][j] = string.Join(", ", answer[i][j].Split(", ").Distinct());
+                    answer[i] =  answer[i].Distinct().ToList();
             }
             Answer = answer;
+           
         }
 
         public void SetZeroJ(int j, List<List<int>> values)
