@@ -112,27 +112,30 @@ namespace Lab1
 
         private void getElementsButton_Click(object sender, EventArgs e)
         {
-            List<List<string>> values = new List<List<string>>();
-
-            for(int i = 0; i < textBoxes.Count; i++)
+            if (amountOfElements.Value > 0)
             {
-                if (textBoxes[i][0].Visible)
-                    values.Add(new List<string>());
-                else
-                    break;
-                for (int j = 0; j < textBoxes[i].Count; j++)
+                List<List<string>> values = new List<List<string>>();
+
+                for (int i = 0; i < textBoxes.Count; i++)
                 {
-                    if (textBoxes[i][j].Visible)
-                    {
-                        values[i].Add(textBoxes[i][j].Text);
-                    }
+                    if (textBoxes[i][0].Visible)
+                        values.Add(new List<string>());
                     else
                         break;
-                }
-                
-            }
+                    for (int j = 0; j < textBoxes[i].Count; j++)
+                    {
+                        if (textBoxes[i][j].Visible)
+                        {
+                            values[i].Add(textBoxes[i][j].Text);
+                        }
+                        else
+                            break;
+                    }
 
-            logic.Values = values;
+                }
+
+                logic.Values = values;
+            }
         }
 
         private void CalculateButton_Click(object sender, EventArgs e)
