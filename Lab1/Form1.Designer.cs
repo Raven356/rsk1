@@ -164,6 +164,8 @@ namespace Lab1
             this.Matrix2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.groupedAnswerText = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
@@ -1329,11 +1331,30 @@ namespace Lab1
             this.label5.TabIndex = 135;
             this.label5.Text = "Answer:";
             // 
+            // groupedAnswerText
+            // 
+            this.groupedAnswerText.Location = new System.Drawing.Point(845, 39);
+            this.groupedAnswerText.Multiline = true;
+            this.groupedAnswerText.Name = "groupedAnswerText";
+            this.groupedAnswerText.Size = new System.Drawing.Size(171, 255);
+            this.groupedAnswerText.TabIndex = 136;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(849, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(120, 20);
+            this.label2.TabIndex = 137;
+            this.label2.Text = "Grouped answer:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1028, 879);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.groupedAnswerText);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Matrix2);
@@ -1625,6 +1646,8 @@ namespace Lab1
         private System.Windows.Forms.TextBox Matrix2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox groupedAnswerText;
+        private System.Windows.Forms.Label label2;
     }
 }
 

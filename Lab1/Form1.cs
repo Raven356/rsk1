@@ -161,6 +161,15 @@ namespace Lab1
                 MatrixText.Text += Environment.NewLine;
             }
 
+            groupedAnswerText.Text = "";
+            foreach(var x in logic.GroupedAnswer)
+            {
+                foreach(var y in x)
+                {
+                    groupedAnswerText.Text += y.ToString() + " ";
+                }
+                groupedAnswerText.Text += Environment.NewLine;
+            }
         }
     }
 }
