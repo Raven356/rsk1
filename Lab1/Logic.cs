@@ -241,7 +241,124 @@ namespace Lab1
                     answer[i] =  answer[i].Distinct().ToList();
             }
             Answer = answer;
-           
+            GroupGroups();
+        }
+
+        //RSK2
+        public void GroupGroups()
+        {
+            List<List<string>> groups = new List<List<string>>();
+            Dictionary<List<int>, int> dictionary = new Dictionary<List<int>, int>();
+            foreach(var lis in Answer)
+            {
+                List<string> temp = new List<string>();
+                foreach (var el in lis)
+                {
+                    temp.AddRange(Values[el - 1]);
+                }
+                
+                groups.Add(temp.Distinct().ToList());
+                dictionary.Add(lis, temp.Distinct().ToList().Count);
+            }
+
+            groups.Sort(new Comparator());
+            List<KeyValuePair<List<int>, int>> myList = dictionary.ToList();
+
+            myList.Sort(
+                delegate (KeyValuePair<List<int>, int> pair1,
+                KeyValuePair<List<int>, int> pair2)
+                {
+                    return -pair1.Value + pair2.Value;
+                }
+            );
+            dictionary = myList.Select(x => new { x.Key, x.Value }).ToDictionary(x => x.Key, x=> x.Value);
+            for(int i = 0; i < groups.Count; i++)
+            {
+                for(int j = i + 1; j < groups.Count; j++)
+                {
+                    bool contains = false;
+                    foreach(var x in groups[j])
+                    {
+                        if (!groups[i].Contains(x))
+                        {
+                            contains = false;
+                            break;
+                        }
+                        else
+                            contains = true;
+                    }
+                    if (!contains)
+                    {
+                        
+                        myList = dictionary.ToList();
+                        for(int k = i + 1; k < myList.Count; k++)
+                        {
+                            int forDelete = -1;
+                            foreach (var x in myList[k].Key)
+                            {
+                                foreach(var y in Values[x - 1])
+                                {
+                                    if (!groups[i].Contains(y))
+                                    {
+                                        forDelete = x;
+                                        break;
+                                    }
+                                }
+                                //if (forDelete != -1)
+                                //{
+                                //    groups[j].Clear();
+                                //    List<string> tempStr = new List<string>();
+                                //    foreach(var z in myList[k].Key)
+                                //    {
+                                //        if(z != forDelete)
+                                //        {
+                                //            tempStr.AddRange(Values[z - 1]);
+                                //        }
+                                //    }
+                                //    groups[j] = tempStr.Distinct().ToList();
+                                //    List<int> temp = new List<int>();
+                                //    temp.AddRange(myList[i].Key);
+                                //    temp.Add(x);
+                                //    dictionary.Add(temp, myList[i].Value);
+                                //    dictionary.Remove(myList[i].Key);
+                                //    temp.Clear();
+                                //    temp.AddRange(myList[j].Key);
+                                //    temp.Remove(x);
+                                //    dictionary.Add(temp, groups[j].Count);
+                                //    dictionary.Remove(myList[j].Key);
+                                //    myList = dictionary.ToList();
+                                //    myList.Sort(
+                                //        delegate (KeyValuePair<List<int>, int> pair1,
+                                //        KeyValuePair<List<int>, int> pair2)
+                                //        {
+                                //            return -pair1.Value + pair2.Value;
+                                //        });
+                                //    dictionary = myList.Select(x => new { x.Key, x.Value }).ToDictionary(x => x.Key, x => x.Value);
+                                //}
+                            }
+                        }
+                    }
+                    if (contains)
+                    {
+                        groups.RemoveAt(j);
+                        List<int> temp = new List<int>();
+                        temp.AddRange(myList[i].Key);
+                        temp.AddRange(myList[j].Key);
+                        dictionary.Add(temp, myList[i].Value);
+                        dictionary.Remove(myList[i].Key);
+                        dictionary.Remove(myList[j].Key);
+                        myList = dictionary.ToList();
+                        myList.Sort(
+                            delegate (KeyValuePair<List<int>, int> pair1,
+                            KeyValuePair<List<int>, int> pair2)
+                            {
+                                return -pair1.Value + pair2.Value;
+                            });
+                        dictionary = myList.Select(x => new { x.Key, x.Value }).ToDictionary(x => x.Key, x => x.Value);
+                    }
+                }
+            }
+            Console.WriteLine();
         }
 
         public void SetZeroJ(int j, List<List<int>> values)
