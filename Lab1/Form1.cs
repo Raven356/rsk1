@@ -19,6 +19,7 @@ namespace Lab1
             InitializeComponent();
             timer1.Start();
             SetTextBoxes();
+
         }
 
         private void SetTextBoxes()
@@ -142,6 +143,7 @@ namespace Lab1
         {
             logic.GetUnique();
 
+
             Matrix2.Text = "";
             foreach (var x in logic.Answer)
             {
@@ -170,6 +172,9 @@ namespace Lab1
                 }
                 groupedAnswerText.Text += Environment.NewLine;
             }
+
+            Form2 form2 = new Form2(logic.Modules, logic.finalModules);
+            form2.Show();
         }
     }
 }
