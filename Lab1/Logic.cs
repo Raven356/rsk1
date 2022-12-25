@@ -493,9 +493,16 @@ namespace Lab1
             }
             List<List<string>> finalModules = new List<List<string>>();
             foreach(var x in Modules) {
-                foreach(var y in x)
-                    if(y.Count != 0)
-                        finalModules.Add(y);
+                foreach (var y in x)
+                    if (y.Count != 0)
+                    {
+                        List<string> temp = new List<string>();
+                        foreach(var z in y)
+                        {
+                            temp.Add(z);
+                        }
+                        finalModules.Add(temp);
+                    }
             }
             finalModules.Sort((x, y) => y.Count.CompareTo(x.Count));
             for(int i = 0; i < finalModules.Count - 1; i++)
@@ -647,16 +654,25 @@ namespace Lab1
                     }
                 }
                 
-                if (((graph.Prev.Count == 1 && graph.Next.Count == 1) && (j == 1 || j==5 || (graphs[i].Next.Count == 1 && graphs[i].Prev.Count == 1)))
-                    
+                if (((graph.Prev.Count == 1 && graph.Next.Count == 1) && (j == 1 || j>=3 || (graphs[i].Next.Count == 1 && graphs[i].Prev.Count == 1)))
                     && !CheckIfContains(module, graphs[i].Val))
                 {
                     j++;
+
                     str.Add(graphs[i].Val);
-                    if(!CheckIfContains(module, graph.Val))
+                    if (j >= 3 && (graphs[i].Next.Count > 1 || graphs[i].Prev.Count > 1) || j == 5)
+                    {
+                        break;
+                    }
+                    if (!CheckIfContains(module, graph.Val))
+                    {
+                        j++;
                         str.Add(graph.Val);
+                    }
                     
                 }
+                if (j == 5)
+                    break;
 
             }
 

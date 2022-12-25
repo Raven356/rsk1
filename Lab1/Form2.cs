@@ -43,8 +43,9 @@ namespace Lab1
             i = 0;
             foreach(var x in finalModules)
             {
-                foreach(var y in x)
-                    finalModulesText.Text += $"M{i + 1}: {y} ";
+                finalModulesText.Text += $"M{i + 1}: ";
+                foreach (var y in x)
+                    finalModulesText.Text += $"{y} ";
                 finalModulesText.Text += Environment.NewLine;
                 i++;
             }
