@@ -12,11 +12,13 @@ namespace Lab1
     {
         List<List<List<string>>> Modules;
         List<List<string>> finalModules;
-        public Form2(List<List<List<string>>> modules, List<List<string>> finalModules)
+        List<List<string>> ModuleGroups;
+        public Form2(List<List<List<string>>> modules, List<List<string>> finalModules, List<List<string>> moduleGroups)
         {
             InitializeComponent();
             Modules = modules;
             this.finalModules = finalModules;
+            ModuleGroups = moduleGroups;
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -47,6 +49,17 @@ namespace Lab1
                 foreach (var y in x)
                     finalModulesText.Text += $"{y} ";
                 finalModulesText.Text += Environment.NewLine;
+                i++;
+            }
+            i = 0;
+            foreach (var x in ModuleGroups)
+            {
+                groupedModulesText.Text += $"M{i + 1}: ";
+                foreach(var y in x)
+                {
+                    groupedModulesText.Text += $"{y} ";
+                }
+                groupedModulesText.Text += Environment.NewLine;
                 i++;
             }
         }

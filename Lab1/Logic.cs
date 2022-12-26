@@ -49,6 +49,7 @@ namespace Lab1
         public List<List<int>> GroupedAnswer = new List<List<int>>();
         public List<List<List<string>>> Modules = new List<List<List<string>>>();
         public List<List<string>> finalModules = new List<List<string>>();
+        public List<List<string>> ModuleGroups = new List<List<string>>();
 
         public void GetUnique()
         {
@@ -528,6 +529,44 @@ namespace Lab1
                 }
             }
             this.finalModules = finalModules;
+
+            List<List<string>> last = new List<List<string>>();
+            int k = 0;
+            
+            foreach(var y in Values)
+            {
+                last.Add(new List<string>());
+                foreach (var x in this.finalModules)
+                {
+
+                    foreach(var z in y)
+                    {
+                        if (x.Contains(z))
+                        {
+                            last[k].Add($"M{this.finalModules.IndexOf(x) + 1}");
+                        }
+                    }
+                    last[k] = last[k].Distinct().ToList();
+
+                   
+                }
+                k++;
+            }
+            List<List<string>> moduleGroups = new List<List<string>>();
+            for(int i = 0; i < this.finalModules.Count; i++)
+            {
+                int l = 0;
+                moduleGroups.Add(new List<string>());
+                foreach(var x in last)
+                {
+                    if(x.Contains($"M{i + 1}"))
+                    {
+                        moduleGroups[i].Add((l + 1).ToString());
+                    }
+                    l++;
+                }
+            }
+            ModuleGroups = moduleGroups;
             Console.WriteLine();
         }
 

@@ -173,7 +173,7 @@ namespace Lab1
                 groupedAnswerText.Text += Environment.NewLine;
             }
 
-            Form2 form2 = new Form2(logic.Modules, logic.finalModules);
+            Form2 form2 = new Form2(logic.Modules, logic.finalModules, logic.ModuleGroups);
             form2.Show();
         }
     }
