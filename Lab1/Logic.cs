@@ -545,7 +545,8 @@ namespace Lab1
         {
             List<string> str = new List<string>();
             string first = null;
-            for(int i = 0; i < graphs.Count - 1; i++)
+            int max = 4;
+            for (int i = 0; i < graphs.Count - 1; i++)
             {
                 if (!CheckIfContains(module, graphs[i].Val))
                 {
@@ -553,17 +554,100 @@ namespace Lab1
                     {
                         first = graphs[i].Val;
                     }
-                    int max = 4;
+
                     GetThroughGraph(str,ref max, graphs[i], first, graphs);
                     break;
                 }
             }
+            max = 4;
+
             str = str.Distinct().ToList();
+            int left = max + 1 - str.Count;
+            if (str.Count < max + 1)
+            {
+                foreach (var x in graphs)
+                {
+                    if (!str.Contains(x.Val))
+                    {
+                        foreach (var y in x.Next)
+                            if (str.Contains(y) && x.Prev.Count != 0)
+                            {
+                                foreach (var n in x.Prev)
+                                {
+                                    List<string> temp = new List<string>();
+                                    bool cont = false;
+                                    foreach(var s in x.Prev)
+                                    {
+                                        if (str.Contains(s))
+                                        {
+                                            cont = true;
+                                            break;
+                                        }
+                                        cont = false;
+                                    }
+                                    if((left == 1 && cont) || left > 1)
+                                        temp.Add(x.Val);
+                                    for (int i = 1; i < left;)
+                                    {
+                                        int tem = i;
+                                        Graph gr = new Graph();
+                                        foreach (var z in graphs)
+                                        {
+                                            if (z.Val.Equals(n))
+                                            {
+                                                gr = z;
+                                                break;
+                                            }
+                                        }
+                                        bool contains = false;
+                                        foreach (var l in gr.Prev)
+                                        {
+                                            if (i == left-1) {
+                                                if (str.Contains(l))
+                                                {
+                                                    temp.Add(gr.Val);
+                                                    str.AddRange(temp);
+                                                    i++;
+                                                    contains = true;
+                                                    break;
+                                                }
+                                                if (!str.Contains(l))
+                                                {
+                                                    contains = false;
+                                                }
+                                            }
+                                            if (i < max - str.Count)
+                                            {
+                                                temp.Add(l);
+                                                i++;
+                                                contains = true;
+                                            }
+                                        }
+                                        if (!contains)
+                                        {
+                                            temp.Clear();
+                                            if (i != max - str.Count)
+                                                temp.Add(x.Val);
+                                        }
+                                        if (tem == i)
+                                            break;
+                                    }
+                                    if (temp.Count > 0)
+                                    {
+                                        str.AddRange(temp);
+                                        str = str.Distinct().ToList();
+                                    }
+                                }
+                            }
+                    }
+                }
+            }
+            
             //Graph firstGraph = new Graph();
             //Graph last = new Graph();
             //if (str.Count != 0)
             //{
-                
+
             //    foreach (var x in graphs)
             //    {
             //        if (x.Val == str[0])
@@ -576,22 +660,33 @@ namespace Lab1
             //        }
             //    }
             //}
-            
+
             //if(last.Next.Contains(firstGraph.Val))
-                module.Add(str);
+            module.Add(str);
         }
         private void GetThroughGraph(List<string> str,ref int max, Graph element, string first, List<Graph> graphs)
         {
             //TODO ДОРОБИТИ ЩОБ МОЖНА БУЛО МЕНШЕ 5, РОЗІБРАТИСЯ З ГРАФАМИ 4 ТА 5
             if (str.Count == max)
             {
+                string el = "";
                 foreach (var x in element.Next)
                 {
                     if (str.Contains(x))
                     {
-                        str.Add(element.Val);
-                        return;
+                        if (!str.Contains(element.Val))
+                        {
+                            str.Add(element.Val);
+                            return;
+                        }
+                        else
+                            el = element.Val;
                     }
+                }
+                if (el != "" && str.Count != max + 1)
+                {
+                    str.Add(el);
+                    return;
                 }
             }
             
@@ -617,9 +712,9 @@ namespace Lab1
                             break;
                         }
                     }
-                    int len = str.Count();
+                    int leng = str.Count();
                     GetThroughGraph(str,ref max, gr, first, graphs);
-                    if (str.Count > len)
+                    if (str.Count > leng)
                         break;
                 }
                 max--; //протестувати
@@ -629,7 +724,12 @@ namespace Lab1
                 str.RemoveAt(str.Count - 1);
                 // max--;
             }
-
+            int len = str.Count();
+            str = str.Distinct().ToList();
+            if(str.Count != len)
+            {
+                max -= len - str.Count;
+            }
 
 
         }
